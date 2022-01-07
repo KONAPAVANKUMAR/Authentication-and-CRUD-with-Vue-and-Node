@@ -1,0 +1,21 @@
+
+
+input{
+    margin-top: 1em;
+}
+
+form {
+    padding : 3em;
+    padding-top: 0px;
+}
+
+.bg-primary{
+    padding-top : 2em;
+}
+
+
+@media screen and (min-width: 768px) {
+    .bg-primary {
+        margin-top: 30%;
+    }
+}

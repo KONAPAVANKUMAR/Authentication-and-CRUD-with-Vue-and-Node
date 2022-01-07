@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Login</title>
+    
+
+</head>
+<body>
+
+
+
+    <div id="app" class="row">
+        <div class="col-0 col-md-3 col-lg-4"></div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="bg-primary">
+                <h1 class="text-center text-white">Login</h1>
+                <!-- form -->
+                <form class="mx-5" @keyup.enter = "login()">
+                    <input type="text" v-model="usernameController" placeholder="Username" class="form-control text-center">
+                    <input type="password" v-model="passwordController" placeholder="Password" class="form-control text-center">
+                    <!-- badge -->
+                    <div class="d-flex justify-content-center mt-3">
+                        <a @click="login()" class="btn btn-light">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-0 col-md-3 col-lg-4"></div>
+    </div>
+    
+</body>
+</html>
+
+<script src="login.js"></script>
