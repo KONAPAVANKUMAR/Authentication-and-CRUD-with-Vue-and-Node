@@ -22,12 +22,29 @@ mongoose.connect('mongodb://localhost/TodoDB', { useNewUrlParser: true })
 const User = mongoose.model('User', {
     username: String,
     password: String,
+    profilePic : {
+        data : Buffer,
+        contentType : String
+    },
     // todos array
     todos: [{
         title: String,
         completed: Boolean
     }]
 })
+
+// multer
+const multer = require('multer')
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    }
+})
+
+var upload = multer({storage : storage})
 
 // signup user
 app.post('/signup', (req, res) => {
@@ -65,6 +82,7 @@ app.post('/signup', (req, res) => {
     })
 })
 
+
 // login user and send token
 app.post('/login', (req, res) => {
     var username = req.body.username
@@ -89,7 +107,7 @@ app.post('/login', (req, res) => {
                 }, 'secret')
 
                 // send token
-                res.status(200).send({status : "success", token: token})
+                res.status(200).send({status : "success", token: token,user : user})
             } else {
                 res.status(401).send({status : "wrong password"})
             }
@@ -275,5 +293,63 @@ app.put('/todo/update/:id', (req, res) => {
                 })
             })
         }
+    })
+})
+
+// update profile pic of loggedin user
+app.put('/profilepic', (req, res) => {
+    // get bearer token from headers
+    var token = req.headers['authorization']
+    // remove bearer from token
+    token = token.replace('Bearer ', '')
+    // verify token
+    jwt.verify(token, 'secret', (err, decoded) => {
+        if (err) {
+            res.status(401).send('Invalid token')
+        } else {
+            var username = decoded.username
+            var profilepic = req.body.profilepic
+
+            // find user
+            User.findOne({ username: username }, (err, user) => {
+                if (err) {
+                    res.status(500).send(err)
+                }
+
+                // update profilepic
+                user.profilepic = profilepic
+
+                // save user
+                user.save((err, user) => {
+                    if (err) {
+                        res.status(500).send(err)
+                    }
+                    res.status(200).send({status : "success", profilepic: user.profilepic})
+                })
+            })
+        }
+    })
+})
+
+// update username by id
+app.put('/user/:id', (req, res) => {
+    // get username by id
+    var id = req.params.id
+    // search username by id in mongo
+    User.findById(id, (err, user) => {
+        if (err) {
+            res.status(500).send(err)
+        }
+
+        // update username
+        user.username = req.body.username
+
+        // save user
+        user.save((err, user) => {
+            if (err) {
+                res.status(500).send(err)
+            }
+            res.status(200).send({status : "success", user: user})
+        })
     })
 })

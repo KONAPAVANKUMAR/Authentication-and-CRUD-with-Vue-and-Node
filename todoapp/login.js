@@ -37,6 +37,7 @@ new Vue({
                 }).then(function (data) {
                     if (data.status == 'success') {
                         localStorage.setItem('token', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.user));
                         window.location.href = 'todo.html'
                     } else {
                         alert(data.status)

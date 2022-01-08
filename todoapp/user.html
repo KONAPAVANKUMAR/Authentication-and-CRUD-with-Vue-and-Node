@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- icons cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>User</title>
+</head>
+<body>
+
+    <div id="user">
+        <nav class="navbar navbar-light bg-primary">
+            <div class="container d-flex justify-content-between">
+                <a href="todo.html"><div class="navbar-brand text-light">Todo</div></a>
+                <div>
+                    <!-- settings icon button -->
+                    <i class="fa fa-gear fa-spin me-3" style="color: white;font-size: 18px;" ></i>
+                    <button @click="logout()" class="btn btn-sm btn-danger">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="row mt-md-5">
+            <div class="col-0 col-md-3 col-lg-4"></div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <!-- card -->
+                <div class="card px-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><span class="text-primary">Settings</span></h5>
+                    </div>
+
+                    <!-- form -->
+                    <div class="px-5 pb-5">
+                        <div class="form-group">
+                            
+                            <div class="d-flex px-4">
+                                <input type="text" @keyup.enter = "updateUsername()" class="form-control form-control-sm text-center" id="name" v-model="usernameController">
+                                <button @click="updateUsername()" class="btn btn-sm btn-primary">update</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-0 col-md-3 col-lg-4"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="user.js"></script>
